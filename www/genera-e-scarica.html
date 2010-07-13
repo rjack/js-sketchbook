@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link type="text/css" href="css/black-tie/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
+		<title></title>
+	</head>
+
+	<body>
+
+		<h1>Prova download file Tab</h1>
+
+		<p>Quando clicchi il pulsante "scarica", deve partire il download di un file generato al volo.</p>
+
+		<p id="scarica"></p>
+
+		<script type="text/javascript" src="js/lib/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-ui-1.8.2.custom.min.js"></script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<script type="text/javascript" src="js/downloadify.min.js"></script>
+		<script type="text/javascript">
+			$("#scarica").downloadify({
+				filename: "foo.tab",
+				swf: "media/downloadify.swf",
+				downloadImage: "images/download.png",
+				width: 105,
+				height: 30,
+				filename: "foo.tab",
+				data: function ()
+				{
+					var i, j,
+						data = "";
+
+					for (j = 0; j < 1000; j++) {
+						for (i = 0; i < 1000; i++) {
+							data = data + i + "	";
+						}
+						data = data + "\n";
+					}
+					return data;
+				},
+				dataType: "string",
+
+			});
+		</script>
+	</body>
+</html>
