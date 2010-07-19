@@ -10,12 +10,15 @@
 
 		<h1>Prova workers</h1>
 
-		<div id="result"></div>
+		<p>Semplice <em>echo</em> Web Worker: apri la console javascript e manda messaggi come <code>worker.postMessage("foo")</code>:</p>
+		<pre>>>> worker.postMessage("foo")
+[http://localhost/js-sketchbook/www/js/worker.js] mi hai detto foo</pre>
 
 		<h2>Riferimenti</h2>
 		<ul>
 			<li><a href="https://developer.mozilla.org/en/Using_web_workers">Using Web Workers</a> (MDC)</li>
 			<li><a href="http://dev.w3.org/html5/workers/">Web Workers</a> (W3C)</li>
+			<li><a href="http://www.nczonline.net/blog/2009/08/25/web-workers-errors-and-debugging/">Web workers: errors and debugging</a></li>
 		</ul>
 
 		<script type="text/javascript" src="js/lib/jquery-1.4.2.min.js"></script>
@@ -24,16 +27,13 @@
 			var worker = new Worker("js/worker.js");
 
 			worker.onmessage = function(event) {
-				document.getElementById("result").textContent = event.data;
-				dump("Got: " + event.data + "\n");
+				console.log(event.data);
 			};
 
 			worker.onerror = function(error) {
-				dump("Worker error: " + error.message + "\n");
+				console.log("Worker error: " + error.message + "\n");
 				throw error;
 			};
-
-			worker.postMessage("6");
 		</script>
 	</body>
 </html>
