@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link type="text/css" href="css/black-tie/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
+		<title>Prova workers</title>
+	</head>
+
+	<body>
+
+		<h1>Prova workers</h1>
+
+		<div id="result"></div>
+
+		<h2>Riferimenti</h2>
+		<ul>
+			<li><a href="https://developer.mozilla.org/en/Using_web_workers">Using Web Workers</a> (MDC)</li>
+			<li><a href="http://dev.w3.org/html5/workers/">Web Workers</a> (W3C)</li>
+		</ul>
+
+		<script type="text/javascript" src="js/lib/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-ui-1.8.2.custom.min.js"></script>
+		<script language="javascript">
+			var worker = new Worker("js/worker.js");
+
+			worker.onmessage = function(event) {
+				document.getElementById("result").textContent = event.data;
+				dump("Got: " + event.data + "\n");
+			};
+
+			worker.onerror = function(error) {
+				dump("Worker error: " + error.message + "\n");
+				throw error;
+			};
+
+			worker.postMessage("6");
+		</script>
+	</body>
+</html>
