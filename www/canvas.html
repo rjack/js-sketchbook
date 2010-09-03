@@ -19,16 +19,54 @@
 		<canvas id="canvas" width="300" height="300"></canvas>
 
 		<script type="text/javascript">
-function draw ()
-{
-	var ctx = document.getElementById("canvas").getContext("2d");
+			var conf = {
+					fps: 30
+				},
 
-	ctx.fillStyle = "rgb(200,0,0)";
-	ctx.fillRect(10, 10, 55, 50);
+				ball = (function ()
+				{
+					var img = new Image(),
+						dir = {
+							x: 3,
+							y: 1
+						},
+						pos = {
+							x: 10,
+							y: 150
+						},
+						move = function ()
+						{
+							pos.x += dir.x;
+							pos.y += dir.y;
+						};
 
-	ctx.fillStyle = "rgba(0,0,200, 0.5)";
-	ctx.fillRect(30, 30, 55, 50);
-}
+					img.src = "http://gaming.ngi.it/images/ngismiles/asd.gif";
+
+					return {
+						img: img,
+						move: move,
+						pos: pos,
+						dir: dir
+					};
+				}()),
+
+				canvas = document.getElementById("canvas"),
+
+				ctx = canvas.getContext("2d"),
+
+				draw = function ()
+				{
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					ball.move();
+					if (ball.pos.x >= canvas.width || ball.pos.x <= 0) {
+						ball.dir.x = ball.dir.x * -1;
+					}
+					if (ball.pos.y >= canvas.width || ball.pos.y <= 0) {
+						ball.dir.y = ball.dir.y * -1;
+					}
+					ctx.drawImage(ball.img, ball.pos.x, ball.pos.y);
+				};
+			window.setInterval(draw, 1000 / conf.fps);
 		</script>
 	</body>
 </html>
